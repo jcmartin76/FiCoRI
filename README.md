@@ -1,0 +1,3 @@
+# FiCoRI
+
+FiCoRI imaging codes 
