@@ -16,12 +16,12 @@ import socket
 
 ##############
 # This function is the twitter API setup.
-def setup_api():
-  auth = tweepy.OAuthHandler('6qIx6jJ5WxB9fN3H7dg7yE0T4', 
-        'tlb7R74SP0kMiLJuJbzpzSB8ir85wPgWdDpUa8Yr90olJB4S08')
-  auth.set_access_token('967497555675246593-BiWkgrNs6HaIOU0468cLui1BQt7mSHA',
-        'N4gBMN5Ezw3KvtwFM21cxisKlAhdAXmy3pkEOfzTB3T9V')
-  return tweepy.API(auth)
+#def setup_api():
+#  auth = tweepy.OAuthHandler('6qIx6jJ5WxB9fN3H7dg7yE0T4', 
+#        'tlb7R74SP0kMiLJuJbzpzSB8ir85wPgWdDpUa8Yr90olJB4S08')
+#  auth.set_access_token('967497555675246593-BiWkgrNs6HaIOU0468cLui1BQt7mSHA',
+#        'N4gBMN5Ezw3KvtwFM21cxisKlAhdAXmy3pkEOfzTB3T9V')
+#  return tweepy.API(auth)
 
 def chunkIt(seq, num):
     avg = len(seq) / float(num)
@@ -59,8 +59,7 @@ def processing_data(idate, directory, Syndirory):
         print('Spectra already plotted %s'%datetime.datetime.today())
 
     else:
-        try:        
-            api=setup_api()
+        try:
             print('Preparing Spectra')
             filea = directory+'Data_Auto_Ant_A_%d%02d%02d.dat.gz'%(idate.year,idate.month,idate.day)
             fileb = directory+'Data_Auto_Ant_B_%d%02d%02d.dat.gz'%(idate.year,idate.month,idate.day)
@@ -131,17 +130,17 @@ def processing_data(idate, directory, Syndirory):
             pytplot.options('Cross W-E', 'ztitle', 'Power (a.u.)')
             #pytplot.options('Cross W-E', 'Colorbar', 0)
 
-            pytplot.tplot([0,1,2],bokeh=True,save_file=Syndirory+'ficori_test/images/ficori_plot_%d%02d%02d.html'%(dates_list[0].year,dates_list[0].month,dates_list[0].day))
+            pytplot.tplot([0,1,2],bokeh=True,save_file=Syndirory+'ficori_test/images/latest_spectra.html'%(dates_list[0].year,dates_list[0].month,dates_list[0].day))
 
             #Converting html output to jpg
             imgkit.from_file(
-            Syndirory+'ficori_test/images/ficori_plot_%d%02d%02d.html'%(dates_list[0].year,dates_list[0].month,dates_list[0].day),
+            Syndirory+'ficori_test/images/latest_spectra.html'%(dates_list[0].year,dates_list[0].month,dates_list[0].day),
             Syndirory+'ficori_test/images/ficori_plot_%d%02d%02d.jpg'%(dates_list[0].year,dates_list[0].month,dates_list[0].day))
 
             #Last Spectra copy
 
-            copyfile(Syndirory+'ficori_test/images/ficori_plot_%d%02d%02d.html'%(dates_list[0].year,dates_list[0].month,dates_list[0].day), 
-            Syndirory+'ficori_test/images/latest_spectra.html')
+            #copyfile(Syndirory+'ficori_test/images/ficori_plot_%d%02d%02d.html'%(dates_list[0].year,dates_list[0].month,dates_list[0].day), 
+            #Syndirory+'ficori_test/images/latest_spectra.html')
 
             copyfile(Syndirory+'ficori_test/images/ficori_plot_%d%02d%02d.jpg'%(dates_list[0].year,dates_list[0].month,dates_list[0].day), 
             Syndirory+'ficori_test/images/latest_spectra.jpg')

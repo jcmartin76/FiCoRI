@@ -1,0 +1,21 @@
+# Este script crea en base al ultimo archivo de la ROACH los productos diarios
+
+#crear archivos de testing
+now=$(date +%Y%m%d)
+
+echo "Filename : /Documents/Data_Auto_Ant_A_$now.dat" > test_data/Data_Auto_Ant_A_$now.dat
+echo "Filename : /Documents/Data_Auto_Ant_B_$now.dat" > test_data/Data_Auto_Ant_B_$now.dat
+echo "Filename : /Documents/Data_Cross_phase_Ant_AB_$now.dat" >  test_data/Data_Cross_phase_Ant_AB_$now.dat
+
+
+#Fecha de ayer
+fecha=$(date +%Y%m%d --date="yesterday")
+
+for entry in /home/pi/testing/*
+do
+  echo "$entry"
+done
+
+mv Data_Auto_Ant_B_20180206_164211.dat Data_Auto_Ant_A_$fecha.dat"
+echo "Filename : /Documents/Data_Auto_Ant_B_$fecha.dat"
+echo "Filename : /Documents/Data_Cross_phase_Ant_AB_$fecha.dat"

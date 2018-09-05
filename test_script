@@ -1,0 +1,20 @@
+# Print date and time
+date
+
+# Check if VPNC is running and restart
+if pidof -s vpnc > /dev/null; then
+    echo 'It is already running!'
+
+    # Bajar los datos de colombia por scp
+    # scp -r juan@168.176.8.174:/home2/ficori/* /media/pi/ficori_hdd/
+    rsync --progress -av juan@168.176.8.43:/home2/ficori/*.gz /media/pi/ficori_hdd/
+else
+    echo 'process not found... launching vpnc'
+    vpnc
+
+    # Bajar los datos de colombia por scp
+    # scp -r juan@168.176.8.174:/home2/ficori/* /media/pi/ficori_hdd/
+    rsync --progress -av juan@168.176.8.43:/home2/ficori/*.gz /media/pi/ficori_hdd/
+fi
+
+

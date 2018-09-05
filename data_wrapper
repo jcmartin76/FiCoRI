@@ -1,0 +1,40 @@
+# Este script crea en base al ultimo archivo de la ROACH los productos diarios
+start=$(date +%s)
+
+###### crear archivos de testing
+#now=$(date +%Y%m%d)
+
+#echo "Filename : /Documents/Data_Auto_Ant_A_$now.dat" > Data_Auto_Ant_A_$now.dat
+#echo "Filename : /Documents/Data_Auto_Ant_B_$now.dat" > Data_Auto_Ant_B_$now.dat
+#echo "Filename : /Documents/Data_Cross_phase_Ant_AB_$now.dat" >  Data_Cross_phase_Ant_AB_$now.dat
+
+# Fecha de ayer
+fecha=$(date +%Y%m%d --date="yesterday")
+
+# lee los ultimos archivos
+data_a=$(ls -rt /home/juan/Documentos/Ficori/Data_v2/Data_Auto_Ant_A*| tail -1)
+data_b=$(ls -rt /home/juan/Documentos/Ficori/Data_v2/Data_Auto_Ant_B*| tail -1)
+cross=$(ls -rt /home/juan/Documentos/Ficori/Data_v2/Data_Cross_phase_Ant_AB*| tail -1)
+
+# cambia los nombre usando la fecha de ayer
+mv $data_a /home/juan/Documentos/Ficori/Data_v2/Data_Auto_Ant_A_$fecha.dat
+mv $data_b /home/juan/Documentos/Ficori/Data_v2/Data_Auto_Ant_B_$fecha.dat
+mv $cross /home/juan/Documentos/Ficori/Data_v2/Data_Cross_phase_Ant_AB_$fecha.dat
+
+# crear de nuevo el archivo
+echo > $data_a
+echo > $data_b
+echo > $cross
+
+
+# comprime los datos
+gzip -f /home/juan/Documentos/Ficori/Data_v2/Data_Auto_Ant_A_$fecha.dat
+gzip -f /home/juan/Documentos/Ficori/Data_v2/Data_Auto_Ant_B_$fecha.dat
+gzip -f /home/juan/Documentos/Ficori/Data_v2/Data_Cross_phase_Ant_AB_$fecha.dat
+
+mv /home2/cron_script/*.gz /home2/ficori
+
+end=$(date +%s)
+runtime=$((end-start))
+
+echo $runtime
